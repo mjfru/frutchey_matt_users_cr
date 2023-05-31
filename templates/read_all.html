@@ -12,7 +12,7 @@
     <title>View All Users</title>
 </head>
 <body>
-    <h1>Here Are All Our Users!</h1>
+    <h1>Our User Database</h1>
     <div id="wrapper">
         <table class="table table-striped table-hover table-bordered">
             <thead>
@@ -23,6 +23,7 @@
                     <th>Email Address</th>
                     <th>Account Created</th>
                     <th>Account Last Updated</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,15 +33,18 @@
                         <td>{{ user.first_name }}</td>
                         <td>{{ user.last_name }}</td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.created_at }}</td>
-                        <td>{{ user.updated_at }}</td>
+                        <td>{{ user.created_at.strftime("%a %b %d %Y %X") }}</td>
+                        <td>{{ user.updated_at.strftime("%a %b %d %Y %X") }}</td>
+                        <td id="table_links"><a href="user/show/{{ user.id }}">Show</a> | <a href="/user/edit/{{ user.id }}">Edit</a> | <a href="/user/delete/{{ user.id }}" id="delete_btn">Delete</a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
     <div id="back_button">
-        <a href="/" class="btn btn-outline-info btn-lg">Create Another User</a>
+        <form action="/create_page">
+            <input type="submit" class="btn btn-outline-info btn-lg" value="Create Another User">
+        </form>
     </div>
 </body>
 </html>
