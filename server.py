@@ -1,13 +1,11 @@
 from flask import Flask, render_template, redirect, request
 from user import User
 app = Flask(__name__)
+
 @app.route("/")
 def index():
     users = User.get_all()
-    ## users = User.get_all()
-    ## print(users)
     return render_template("/read_all.html", users = users)
-
 
 # Create User
 @app.route("/create_page")
@@ -44,10 +42,10 @@ def edit(id):
     return render_template("edit_user.html", user = User.edit(data))
 
 # Update User Information
-@app.route("/user/update", methods = ['POST'])
-def update():
+@app.route("/user/update/<int:id>", methods = ['POST'])
+def update(id):
     User.update(request.form)
-    return redirect("/read_all") # <-------------------------------
+    return redirect(f"/user/show/{id}")
 
 # Delete User
 @app.route("/user/delete/<int:id>")
@@ -58,4 +56,3 @@ def delete_user(id):
 
 if __name__ == "__main__":
     app.run(debug=True)
-    

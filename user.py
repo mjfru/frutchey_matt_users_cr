@@ -27,7 +27,7 @@ class User:
 
 # UPDATE
     @classmethod
-    def edit(cls, data):
+    def edit(cls, data):            # Should be get_one_user() but it's too far along to change now!
         query = "SELECT * FROM users WHERE id = %(id)s"
         result = connectToMySQL('users').query_db(query, data)
         return cls(result[0])
